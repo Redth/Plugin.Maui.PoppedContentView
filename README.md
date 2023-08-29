@@ -19,8 +19,11 @@ Install with the dotnet CLI: `dotnet add package Plugin.Maui.PoppedContentView`,
 
 In your _MauiProgram.cs_ file, call the `builder.UsePopped()` method on your builder to configure the plugin.
 
-In your app you can inject the `IPoppedNavigationService` (or get it from the service provider manually, eg: `this.Handler.MauiContext.Services.GetService<IPoppedNavigationService>();`).
+In your app you can inject the `IPoppedNavigationService` as normally, or get it from the service provider manually, eg:
 
+```csharp
+this.Handler.MauiContext.Services.GetService<IPoppedNavigationService>();
+```
 
 ## Usage
 
@@ -49,3 +52,15 @@ The first argument is an `IWindow` which should be the window you would like to 
     </Grid>
 </popped:PoppedContentView>
 ```
+
+The `PoppedContentView` is just a subclass of `ContentView` which implements a couple more methods such as `PoppingInAsync()` and `PoppingOutAsync()`.
+
+## Closing 
+
+There's no built in mechanism for closing when the background of the popup is tapped.  You can wire this up yourself with a Tap gesture recognizer on your view(s) and then calling the `HideAsync(IPoppedContentView)` method.
+
+## Animations
+
+Currently there is no built-in animations.  You can however accomplish them using the MAUI animation API's from within the `PoppingInAsync()` and `PoppingOutAsync()` methods (the sample shows how to do this).
+
+
