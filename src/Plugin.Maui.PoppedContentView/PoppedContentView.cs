@@ -2,7 +2,7 @@
 
 namespace Maui.Popped;
 
-public class PoppedContent : ContentView, IPoppedContentView
+public class PoppedContentView : ContentView, IPoppedContentView
 {
     public virtual Task PoppingInAsync()
     {

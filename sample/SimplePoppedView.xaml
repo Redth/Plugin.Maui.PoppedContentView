@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<popped:PoppedContent xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<popped:PoppedContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:popped="clr-namespace:Maui.Popped;assembly=Maui.Popped"
+             xmlns:popped="clr-namespace:Maui.Popped;assembly=Plugin.Maui.PoppedContentView"
              Background="Transparent"
              x:Class="Sample.SimplePoppedView">
-    <popped:PoppedContent.GestureRecognizers>
+    <popped:PoppedContentView.GestureRecognizers>
         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-    </popped:PoppedContent.GestureRecognizers>
+    </popped:PoppedContentView.GestureRecognizers>
     <Grid VerticalOptions="End">
 
         <Border VerticalOptions="End" Background="Red" StrokeShape="{RoundRectangle CornerRadius=18}" Padding="20" Margin="20">
@@ -16,5 +16,5 @@
                 HorizontalOptions="Center" />
         </Border>
     </Grid>
-</popped:PoppedContent>
+</popped:PoppedContentView>
 

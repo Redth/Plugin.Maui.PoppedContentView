@@ -9,7 +9,7 @@ public class PoppedNavigationService : IPoppedNavigationService
 	public Task HideAsync(IPoppedContentView content)
 		=> Task.CompletedTask;
 
-	public async Task ShowAsync(IWindow fromWindow, IPoppedContentView content)
+	public Task ShowAsync(IWindow fromWindow, IPoppedContentView content)
 		=> Task.CompletedTask;
 }
 #endif
