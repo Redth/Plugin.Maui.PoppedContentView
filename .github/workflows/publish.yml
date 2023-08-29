@@ -18,6 +18,12 @@ jobs:
       - name: Get version information from tag
         id: get_version
         uses: battila7/get-version-action@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - name: Setup MAUI
+        run: dotnet workload install maui ios android maccatalyst
       - name: Pack
         run: dotnet pack -c Release -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }} --output ./artifacts src\Plugin.Maui.PoppedContentView\Plugin.Maui.PoppedContentView.csproj
       - name: Push
