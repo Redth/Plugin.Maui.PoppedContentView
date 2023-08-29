@@ -1,0 +1,172 @@
+﻿<Project>
+	
+	
+	<PropertyGroup>
+		<EnableApplePlatformCompileItems Condition=" '$(EnableApplePlatformCompileItems)' == '' ">True</EnableApplePlatformCompileItems>
+		<EnableNetPlatformCompileItems Condition=" '$(EnableNetPlatformCompileItems)' == '' ">True</EnableNetPlatformCompileItems>
+		<EnablePlatformFilenamePatternCompileItems Condition=" '$(EnablePlatformFilenamePatternCompileItems)' == '' ">True</EnablePlatformFilenamePatternCompileItems>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(SingleProject)' == 'True' ">
+		<PlatformsProjectFolder Condition=" '$(PlatformsProjectFolder)' == '' ">Platforms\</PlatformsProjectFolder>
+		<PlatformsProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(PlatformsProjectFolder)'))</PlatformsProjectFolder>
+
+		<AndroidProjectFolder Condition=" '$(AndroidProjectFolder)' == '' ">$(PlatformsProjectFolder)Android\</AndroidProjectFolder>
+		<AndroidProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(AndroidProjectFolder)'))</AndroidProjectFolder>
+
+		<iOSProjectFolder Condition=" '$(iOSProjectFolder)' == '' ">$(PlatformsProjectFolder)iOS\</iOSProjectFolder>
+		<iOSProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(iOSProjectFolder)'))</iOSProjectFolder>
+
+		<MacCatalystProjectFolder Condition=" '$(MacCatalystProjectFolder)' == '' ">$(PlatformsProjectFolder)MacCatalyst\</MacCatalystProjectFolder>
+		<MacCatalystProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(MacCatalystProjectFolder)'))</MacCatalystProjectFolder>
+
+		<WindowsProjectFolder Condition=" '$(WindowsProjectFolder)' == '' ">$(PlatformsProjectFolder)Windows\</WindowsProjectFolder>
+		<WindowsProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(WindowsProjectFolder)'))</WindowsProjectFolder>
+
+		<TizenProjectFolder Condition=" '$(TizenProjectFolder)' == '' ">$(PlatformsProjectFolder)Tizen\</TizenProjectFolder>
+		<TizenProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(TizenProjectFolder)'))</TizenProjectFolder>
+
+		<AppleProjectFolder
+			Condition=" '$(AppleProjectFolder)' == '' And '$(EnableApplePlatformCompileItems)' == 'True' ">$(PlatformsProjectFolder)Apple\</AppleProjectFolder>
+		<AppleProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(AppleProjectFolder)'))</AppleProjectFolder>
+
+		<NetProjectFolder
+			Condition=" '$(NetProjectFolder)' == '' And '$(EnableNetPlatformCompileItems)' == 'True' ">$(PlatformsProjectFolder)Net\</NetProjectFolder>
+		<NetProjectFolder>$([MSBuild]::EnsureTrailingSlash('$(NetProjectFolder)'))</NetProjectFolder>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Update="**/*$(DefaultLanguageSourceExtension)">
+			<IsPlatformSpecific>False</IsPlatformSpecific>
+		</Compile>
+	</ItemGroup>
+
+
+	<!-- Associate the platform with compile items matching platform filename patterns -->
+	<ItemGroup Condition=" '$(EnablePlatformFilenamePatternCompileItems)' == 'True' ">
+		<Compile Update="**/*.ios*$(DefaultLanguageSourceExtension)">
+			<IsiOSPlatform>True</IsiOSPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="**/*.maccatalyst*$(DefaultLanguageSourceExtension)">
+			<IsMacCatalystPlatform>True</IsMacCatalystPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="**/*.android*$(DefaultLanguageSourceExtension)">
+			<IsAndroidPlatform>True</IsAndroidPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="**/*.windows*$(DefaultLanguageSourceExtension)">
+			<IsWindowsPlatform>True</IsWindowsPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="**/*.tizen*$(DefaultLanguageSourceExtension)">
+			<IsTizenPlatform>True</IsTizenPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+
+		<Compile Update="**/*.net*$(DefaultLanguageSourceExtension)">
+			<IsNetPlatform>True</IsNetPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+	</ItemGroup>
+
+
+	<!-- If SingleProject is enabled, let's also update associated platform for anything in the project folder paths -->
+	<ItemGroup Condition=" '$(SingleProject)' == 'True' ">
+
+		<!-- Associate the platform with compile items matching platform project folder patterns -->
+		<Compile Update="$(iOSProjectFolder)/iOS/**/*$(DefaultLanguageSourceExtension)">
+			<IsiOSPlatform>True</IsiOSPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="$(MacCatalystProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsMacCatalystPlatform>True</IsMacCatalystPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="$(AndroidProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsAndroidPlatform>True</IsAndroidPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="$(WindowsProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsWindowsPlatform>True</IsWindowsPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="$(TizenProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsTizenPlatform>True</IsTizenPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+
+		<Compile Update="$(AppleProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsiOSPlatform>True</IsiOSPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+		<Compile Update="$(AppleProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsMacCatalystPlatform>True</IsMacCatalystPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+
+		<Compile Update="$(NetProjectFolder)**/*$(DefaultLanguageSourceExtension)">
+			<IsNetPlatform>True</IsNetPlatform>
+			<IsPlatformSpecific>True</IsPlatformSpecific>
+		</Compile>
+
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+		<!-- Exclude all *.cs marked as platform specific first, this gives us a blank slate to start re-including things from -->
+		<Compile Update="@(Compile->HasMetadata('IsPlatformSpecific')->WithMetadataValue('IsPlatformSpecific', 'True'))">
+			<ExcludeFromCurrentConfiguration>True</ExcludeFromCurrentConfiguration>
+		</Compile>
+
+		<!-- Bring back all of the .cs files associated to the current target platform -->
+		<Compile
+			Update="@(Compile->HasMetadata('IsiOSPlatform')->WithMetadataValue('IsiOSPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == 'ios' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile
+			Update="@(Compile->HasMetadata('IsMacCatalystPlatform')->WithMetadataValue('IsMacCatalystPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == 'maccatalyst' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile
+			Update="@(Compile->HasMetadata('IsAndroidPlatform')->WithMetadataValue('IsAndroidPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile
+			Update="@(Compile->HasMetadata('IsWindowsPlatform')->WithMetadataValue('IsWindowsPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == 'windows' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile
+			Update="@(Compile->HasMetadata('IsTizenPlatform')->WithMetadataValue('IsTizenPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == 'tizen' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile
+			Update="@(Compile->HasMetadata('IsNetPlatform')->WithMetadataValue('IsNetPlatform', 'True'))"
+			Condition=" '$(TargetPlatformIdentifier)' == '' ">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+
+		<!-- Finally, bring back specifically .NET platform associated files if we are building for a TFM with no target platform -->
+		<!-- This allows some files to be marked ONLY for inclusion if we aren't building for a platform -->
+		<Compile
+			Update="@(Compile->HasMetadata('IsPlatformSpecific')->WithMetadataValue('IsPlatformSpecific', 'False'))">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+	</ItemGroup>
+
+	<!-- Remove all *.cs files still marked as excluded from current config -->
+	<Target Name="_PluginMauiDevRemovePlatformCompileItems" BeforeTargets="_MauiRemovePlatformCompileItems">
+		<ItemGroup>
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'True' " Remove="**/*$(DefaultLanguageSourceExtension)" />
+		</ItemGroup>
+	</Target>
+
+</Project>
