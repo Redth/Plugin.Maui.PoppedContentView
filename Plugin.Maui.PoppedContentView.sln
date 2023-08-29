@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1704.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34004.107
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Maui.PoppedContentView", "src\Plugin.Maui.PoppedContentView\Plugin.Maui.PoppedContentView.csproj", "{32F7C965-4A66-477A-ACA8-E2D414D09C78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.Maui.PoppedContentView", "src\Plugin.Maui.PoppedContentView\Plugin.Maui.PoppedContentView.csproj", "{32F7C965-4A66-477A-ACA8-E2D414D09C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "sample\Sample.csproj", "{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "sample\Sample.csproj", "{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC3BA06C-626F-44A2-B55E-ADE1CAD31E95}"
+	ProjectSection(SolutionItems) = preProject
+		Plugin.Maui.Dev.targets = Plugin.Maui.Dev.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +24,7 @@ Global
 		{32F7C965-4A66-477A-ACA8-E2D414D09C78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3E944FA-3208-4C0E-BE87-8D3B5D9EA763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
