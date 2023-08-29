@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0</TargetFrameworks>
+   		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UseMauiEssentials>true</UseMauiEssentials>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+		<!-- NuGet -->
+		<Authors>redth</Authors>
+		<Copyright>Copyright © redth</Copyright>
+		<IsPackable>True</IsPackable>
+		<PackageProjectUrl>https://github.com/redth/Plugin.Maui.PoppedContentView</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/redth/Plugin.Maui.PoppedContentView</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>dotnet-maui;maui;plugin;</PackageTags>
+		<IncludeSymbols>True</IncludeSymbols>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Title>.NET MAUI Feature Plugin</Title>
+		<Description>Simple Popup control and service for .NET MAUI</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<DebugType>portable</DebugType>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Update="**\*.ios*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.maccatalyst*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.android*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.tizen*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.windows*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'ios' " Update="*\*.ios*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'maccatalyst' " Update="**\*.maccatalyst*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'android' " Update="**\*.android*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'windows' " Update="**\*.windows*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'tizen' " Update="**\*.tizen*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+	</ItemGroup>
+
+
+	<Target Name="_MauiRemovePlatformFileNamePatternCompileItems" BeforeTargets="_MauiRemovePlatformCompileItems">
+		<ItemGroup>
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.ios*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.maccatalyst*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.android*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.windows*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.tizen*$(DefaultLanguageSourceExtension)" />
+		</ItemGroup>
+	</Target>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" IsImplicitlyDefined="true" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+	</ItemGroup>
+
+	<!-- Package additions -->
+	<ItemGroup>
+		<None Include="..\..\nuget.png" PackagePath="icon.png" Pack="true" />
+	</ItemGroup>
+
+</Project>
