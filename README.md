@@ -7,6 +7,9 @@ This example README has some dummy APIs you'll need to replace and only acts as 
 
 `Plugin.Maui.PoppedContentView` is a simple control / service for presenting popup content in .NET MAUI apps.
 
+![poppedcontentview](https://github.com/Redth/Plugin.Maui.PoppedContentView/assets/271950/668398c6-505e-4b9c-9094-9a54be0d5fe9)
+
+
 ## Install Plugin
 
 [![NuGet](https://img.shields.io/nuget/v/Plugin.Maui.PoppedContentView.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Maui.PoppedContentView/)
