@@ -1,4 +1,4 @@
-name: Build Sample App for CI
+name: Build
 
 on:
   push:
@@ -9,11 +9,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-sample-ci:
+  build-plugin-ci:
 
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: dotnet build samples\Plugin.Maui.Feature.Sample.sln -c Release
+      run: dotnet build ./Plugin.Maui.PoppedContentView.sln -c Release
